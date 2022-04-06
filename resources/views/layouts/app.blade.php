@@ -28,6 +28,9 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('courses.index') }}">Cursos</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('enrollment.index') }}">Enrollment</a>
+    </li>
   </ul>
 
 </div>

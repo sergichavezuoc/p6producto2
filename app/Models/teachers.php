@@ -16,4 +16,7 @@ class teachers extends Model
         'nif',
         'email'
     ];
+    public function classroom() {
+        return $this->hasMany(classroom::class,'id_teacher');
+    }
 }

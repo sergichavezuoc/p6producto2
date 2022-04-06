@@ -110,12 +110,12 @@ class coursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(students $student)
+    public function destroy(courses $course)
     {
         //
-        $student->delete();
+        $course->delete();
 
-        return redirect()->route('students.index')
-            ->with('success','Student deleted successfully');
+        return redirect()->route('courses.index')
+            ->with('success','Course deleted successfully');
     }
 }
