@@ -83,13 +83,13 @@
                                 placeholder="email">
                         </div>
                         <div class="form-group">
-                            <label for="pass">Password</label>
+                            <label for="password">Password</label>
                             <input
                                 type="text"
                                 class="form-control"
-                                id="pass"
-                                name="pass"
-                                placeholder="pass">
+                                id="password"
+                                name="password"
+                                placeholder="password">
                         </div>
                         <button type="submit" class="btn btn-primary">Add Record</button>
                     </form>

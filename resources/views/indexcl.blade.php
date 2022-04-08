@@ -32,18 +32,18 @@
 
                     @foreach($classrooms as $classroom)
                     <tr>
-                        <td>{{$classroom->id_classroom}}</td>
-                        <td>{{$classroom->id_teacher}}</td>
-                        <td>{{$classroom->id_course}}</td>
-                        <td>{{$classroom->time_start}}</td>
-                        <td>{{$classroom->time_end}}</td>
-                        <td>{{$classroom->time_day}}</td>
+                        <td>{{$classroom->id_class}}</td>
+                        <td>{{$classroom ->teachers ->name}}</td>
+                        <td>{{$classroom->courses -> name}}</td>
+                        <td>{{$classroom ->schedule ->time_start}}</td>
+                        <td>{{$classroom ->schedule ->time_end}}</td>
+                        <td>{{$classroom ->schedule ->day}}</td>
                         <td>
-                            <form action="{{ route('classroom.destroy',$classroom->id_classroom) }}" method="POST">
+                            <form action="{{ route('classroom.destroy',$classroom->id_class) }}" method="POST">
 
-                                <a class="btn btn-info" href="{{ route('classroom.show',$classroom->id_classroom) }}">Mostrar</a>
+                                <a class="btn btn-info" href="{{ route('classroom.show',$classroom->id_class) }}">Mostrar</a>
 
-                                <a class="btn btn-primary" href="{{ route('classroom.edit',$classroom->id_classroom) }}">Editar</a>
+                                <a class="btn btn-primary" href="{{ route('classroom.edit',$classroom->id_class) }}">Editar</a>
 
                                 @csrf
                                 @method('DELETE')
@@ -57,7 +57,7 @@
                     </tbody>
                 </table>
 
-                {!! $classrooms->links() !!}
+                
 
             </div>
         </div>

@@ -14,8 +14,7 @@ class studentsController extends Controller
     public function index()
     {
         //
-        $students = students::latest()->paginate(5);
-        $enrollments = students::find(1)->enrollments;
+        $students = students::with('enrollments')->get();
         // dd($enrollments);
 
         return view('indexs',compact('students'))
@@ -65,6 +64,7 @@ class studentsController extends Controller
     {
         //
         $enrollments = students::find(1)->enrollments;
+        print_r($student);
         return view('students_details',compact('student'),compact('enrollments'));
     }
 

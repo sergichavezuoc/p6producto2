@@ -10,12 +10,12 @@ class classroom extends Model
     use HasFactory;
     protected $primaryKey = 'id_class';
     protected $fillable = ['id_teacher','id_course', 'id_schedule', 'name','color'];
-    public function teacher()
+    public function teachers()
     {
         return $this->belongsTo(teachers::class,'id_teacher','id_teacher');
         
     }
-    public function course()
+    public function courses()
     {
     return $this->belongsTo(courses::class,'id_course','id_course');
     }

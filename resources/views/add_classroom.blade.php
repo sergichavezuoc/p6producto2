@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('main-content')
+<script>
+    $(document).ready(function(){
+    $('#time').datetimepicker({
+    format: 'yyyy-mm-dd'
+});
+    });
+    </script>
     <div class="row mt-1">
         <div class="col-md-8 offset-md-2">
             <div class="row">
@@ -53,9 +60,27 @@
 </select>  
                         </div>
                         <div class="form-group">
-                            <label for="time_start">Hora inicio:</label>
+                            <label for="name">Nombre:</label>
                             <input
                                 type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                placeholder="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Color:</label>
+                            <input
+                                type="color"
+                                class="form-control"
+                                id="color"
+                                name="color"
+                                placeholder="color">
+                        </div>
+                        <div class="form-group">
+                            <label for="time_start">Hora inicio:</label>
+                            <input
+                                type="time"
                                 class="form-control"
                                 id="time_start"
                                 name="time_start"
@@ -64,7 +89,7 @@
                         <div class="form-group">
                             <label for="time_end">Hora fin:</label>
                             <input
-                                type="text"
+                                type="time"
                                 class="form-control"
                                 id="time_end"
                                 name="time_end"
@@ -73,13 +98,12 @@
                         <div class="form-group">
                             <label for="day">Dia:</label>
                             <input
-                                type="text"
+                                type="date"
                                 class="form-control"
                                 id="day"
                                 name="day"
                                 placeholder="day">
                         </div>
-                        
                         
                         <button type="submit" class="btn btn-primary">Add classroom</button>
                     </form>

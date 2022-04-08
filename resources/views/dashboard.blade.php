@@ -1,17 +1,22 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Horarios escolares - Alumno
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Bienvenido a tu aplicación de horarios escolares
+@extends('layouts.app')
+@section('main-content')
+      
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <h1 class="text-center m-5">Usuario: Bienvenido!</h1>
+                    @if(\Session::has('error'))
+                        <div class="alert alert-danger">{{ \Session::get('error') }}</div>
+                    @endif
+                    <div class="container">
+                        Esta es la pagina principal para alumnos
+                    <form method="get" action="{{ route('admin.logout') }}">
+                        @csrf
+                        <div class="row mt-3">
+                            <button type="submit" class="btn">Desconectar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    </div>
-</x-app-layout>
+      
+            @endsection
+

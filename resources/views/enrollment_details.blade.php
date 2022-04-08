@@ -15,10 +15,10 @@
                 </div>
                 <br><br>
                 <div class="col-md-12">
-                    <h1>Estudiante: {{$enrollment->id_student}} - {{$student->name}}</h1>
+                    <h1>Estudiante: {{$student->name}}</h1>
                 </div>
                <div class="col-md-12">
-                   <p>Curso: {{$enrollment->id_course}} - {{$course->name}}</p>
+                   <p>Curso: {{$course->name}}</p>
                </div>
 
             </div>

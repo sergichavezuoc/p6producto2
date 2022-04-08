@@ -16,10 +16,9 @@ class enrollmentController extends Controller
     public function index()
     {
         //
-        $enrollments =enrollment::latest()->paginate(5);
-        $students = students::latest()->paginate(5);
-        $courses = courses::latest()->paginate(5);
-        return view('indexe',compact('enrollments'),compact('students'),compact('courses'))
+        $enrollments =enrollment::with('students','courses')->get();
+        //print_r($enrollments);
+        return view('indexe',compact('enrollments'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -69,8 +68,8 @@ class enrollmentController extends Controller
     public function show(enrollment $enrollment)
     {
         //
-        $student = enrollment::find(1)->student;
-        $course = enrollment::find(1)->course;
+        $student = students::find(1);
+        $course = courses::find(1);
         return view('enrollment_details',compact('enrollment','course','student'));
     }
 

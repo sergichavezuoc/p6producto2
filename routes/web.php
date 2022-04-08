@@ -8,6 +8,7 @@ use App\Http\Controllers\coursesController;
 use App\Http\Controllers\enrollmentController;
 use App\Http\Controllers\classroomController;
 use App\Http\Controllers\ProfesorController;
+use App\Http\Controllers\usuariosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,18 +26,20 @@ Route::get('/', function () {
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-Route::resource('classroom',classroomController::class);
+
+
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('students',studentsController::class);
     Route::resource('courses',coursesController::class);
     Route::resource('enrollment',enrollmentController::class);
     Route::resource('profesor',ProfesorController::class);
-
+    Route::resource('classroom',classroomController::class);
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    
 
 });
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
+Route::resource('usuarios',usuariosController::class);
 require __DIR__.'/auth.php';

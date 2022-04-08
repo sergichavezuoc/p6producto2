@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\classroom;
 use App\Models\courses;
 use App\Models\teachers;
-use App\Models\schedules;
+use App\Models\schedule;
+use DB;
 class classroomController extends Controller
 {
     /**
@@ -17,10 +18,8 @@ class classroomController extends Controller
     public function index()
     {
         //
-        $teachers = teachers::latest()->paginate(5);
-        $courses = courses::latest()->paginate(5);
-        $classrooms =classroom::latest()->paginate(5);
-        return view('indexcl',compact('classrooms','courses','teachers'))
+        $classrooms =classroom::with('schedule','courses','teachers')->get();
+        return view('indexcl',compact('classrooms'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -55,11 +54,16 @@ class classroomController extends Controller
             'time_start' => 'required',
             'time_end' => 'required',
             'day' => 'required',
+            'name' => 'required',
+            'color' => 'required',
         ]);
-
+        $sentencia = DB::select("SHOW TABLE status LIKE 'classrooms'");
+        $nextId = $sentencia[0]->Auto_increment;
+        $schedule= schedule::create(['id_class' => $nextId,'time_start' => $request['time_start'],'time_end' => $request['time_end'],'day' => $request['day']]);
+        $scheduleId= $schedule -> id_schedule;
         //dd($request);
         //return $request->all();
-        classroom::create($request->all());
+        classroom::create(['id_schedule'=> $scheduleId, 'id_teacher' => $request['id_teacher'],'id_course' => $request['id_course'],'name' => $request['name'],'color' => $request['color']]);
         return redirect()->route('classroom.index')
             ->with('success','Class added successfully.');
 

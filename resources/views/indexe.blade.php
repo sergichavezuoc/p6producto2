@@ -30,8 +30,8 @@
                     @foreach($enrollments as $enrollment)
                     <tr>
                         <td>{{$enrollment->id_enrollment}}</td>
-                        <td>{{$enrollment->id_student}}</td>
-                        <td>{{$enrollment->id_course}}</td>
+                        <td>{{$enrollment-> students -> name}}</td>
+                        <td>{{$enrollment-> courses -> name}}</td>
                         <td>{{$enrollment->status}}</td>
                         <td>
                             <form action="{{ route('enrollment.destroy',$enrollment->id_enrollment) }}" method="POST">
@@ -52,7 +52,6 @@
                     </tbody>
                 </table>
 
-                {!! $enrollments->links() !!}
 
             </div>
         </div>
