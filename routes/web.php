@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\Auth\studentsAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\studentsController;
 use App\Http\Controllers\coursesController;
@@ -27,7 +28,14 @@ Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name(
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-
+Route::get('/students/login', [studentsAuthController::class, 'showLoginForm'])->name('students.login');
+Route::get('/students/register', [studentsAuthController::class, 'registration'])->name('students.registration');
+Route::post('/students/registered', [studentsAuthController::class, 'customRegistration'])->name('students.postregistration');
+Route::post('/students/login', [studentsAuthController::class, 'login'])->name('students.login');
+Route::get('/students/logout', [studentsAuthController::class, 'logout'])->name('students.logout');
+Route::group(['middleware' => ['auth:students']], function () {
+    Route::get('students/dashboard', [usuariosController::class, 'index'])->name('usuarios.index');
+}); 
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('students',studentsController::class);
     Route::resource('courses',coursesController::class);

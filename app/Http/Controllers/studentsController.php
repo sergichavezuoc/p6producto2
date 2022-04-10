@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\students;
+use App\Models\enrollment;
+use DB;
 class studentsController extends Controller
 {
     /**
@@ -64,8 +66,13 @@ class studentsController extends Controller
     {
         //
         $enrollments = students::find(1)->enrollments;
-        print_r($student);
-        return view('students_details',compact('student'),compact('enrollments'));
+        $users = DB::table('users')
+        ->join('enrollments', 'users.id', '=', 'enrollments.id_student')
+        ->join('courses', 'courses.id_course', '=', 'enrollments.id_course')
+        ->select('users.*', 'courses.*', 'enrollments.*')
+        ->where('users.id', $student->id)
+        ->get();
+        return view('students_details',compact('student'),compact('users'));
     }
 
     /**

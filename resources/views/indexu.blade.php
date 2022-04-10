@@ -38,8 +38,8 @@
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      selectable:true,
       initialView: 'dayGridMonth',
-      initialDate: '2022-04-07',
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
@@ -55,7 +55,8 @@
         },
         @endforeach
         
-      ]
+      ],
+      
     });
 
     calendar.render();
