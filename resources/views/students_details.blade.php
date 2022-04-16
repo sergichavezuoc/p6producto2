@@ -28,6 +28,21 @@
                    @endforeach
                     </p>
                </div>
+               <div class="col-md-12">
+                    <h4>Examenes</h4>
+                   <p>
+                   @foreach($examenes as $examen)
+                   <b>Clase:</b> {{$examen->clase}} <b>Examen:</b> {{$examen->name}} <b>Nota:</b> {{$examen->mark}}<br />
+                   @endforeach
+                    </p>
+               </div>
+               <div class="col-md-12">
+               <form method="post" action="/classroom/addExam">
+               @csrf
+               <input type="hidden" name="id_student" value="{{$student->id}}" />
+               <button type="submit" class="btn btn-primary">Entrar examen</button>
+                </form>
+                </div>
 
             </div>
         </div>

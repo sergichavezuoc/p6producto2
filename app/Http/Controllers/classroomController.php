@@ -7,6 +7,8 @@ use App\Models\classroom;
 use App\Models\courses;
 use App\Models\teachers;
 use App\Models\schedule;
+use App\Models\exams;
+use App\Models\students;
 use DB;
 class classroomController extends Controller
 {
@@ -45,6 +47,12 @@ class classroomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function storeExam(Request $request)
+    {
+    exams::create($request->all());
+    return redirect()->route('classroom.index')
+        ->with('success','Examen añadido correctamente.');
+    }
     public function store(Request $request)
     {
         //
@@ -77,10 +85,29 @@ class classroomController extends Controller
      */
     public function show(classroom $classroom)
     {
+        $users = DB::table('students')
+        ->join('enrollments', 'students.id', '=', 'enrollments.id_student')
+        ->join('courses', 'courses.id_course', '=', 'enrollments.id_course')
+        ->join('classrooms', 'courses.id_course', '=', 'classrooms.id_course')
+        ->select('students.name AS nombre','students.surname AS apellido', 'courses.*', 'enrollments.*', 'classrooms.*')
+        ->where('classrooms.id_class', $classroom->id_class)
+        ->get();
+        $trabajos = DB::table('students')
+        ->join('works', 'students.id', '=', 'works.id_student')
+        ->join('classrooms', 'classrooms.id_class', '=', 'works.id_class')
+        ->select('students.*', 'classrooms.*', 'works.*')
+        ->where('classrooms.id_class', $classroom->id_class)
+        ->get();
+        $examenes = DB::table('students')
+        ->join('exams', 'students.id', '=', 'exams.id_student')
+        ->join('classrooms', 'classrooms.id_class', '=', 'exams.id_class')
+        ->select('students.*', 'students.name AS nombre','students.surname AS apellido', 'exams.name AS examen', 'exams.mark AS nota')
+        ->where('classrooms.id_class', $classroom->id_class)
+        ->get();
         //
         //$student = enrollment::find(1)->student;
         //$course = enrollment::find(1)->course;
-        return view('classroom_details',compact('classroom'));
+        return view('classroom_details',compact('classroom','users','trabajos','examenes'));
     }
 
     /**
@@ -102,6 +129,12 @@ class classroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function addExam(Request $request)
+    {
+        $classrooms =classroom::get();
+        $students =students::get();
+        return view('add_exam_classroom',compact('students','classrooms','request'));
+    }
     public function update(Request $request, classroom $classroom)
     {
         //

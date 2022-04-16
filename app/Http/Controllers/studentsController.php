@@ -66,13 +66,25 @@ class studentsController extends Controller
     {
         //
         $enrollments = students::find(1)->enrollments;
-        $users = DB::table('users')
-        ->join('enrollments', 'users.id', '=', 'enrollments.id_student')
+        $users = DB::table('students')
+        ->join('enrollments', 'students.id', '=', 'enrollments.id_student')
         ->join('courses', 'courses.id_course', '=', 'enrollments.id_course')
-        ->select('users.*', 'courses.*', 'enrollments.*')
-        ->where('users.id', $student->id)
+        ->select('students.*', 'courses.*', 'enrollments.*')
+        ->where('students.id', $student->id)
         ->get();
-        return view('students_details',compact('student'),compact('users'));
+        $trabajos = DB::table('students')
+        ->join('works', 'students.id', '=', 'works.id_student')
+        ->join('classrooms', 'classrooms.id_class', '=', 'works.id_class')
+        ->select('students.*', 'classrooms.*', 'works.*')
+        ->where('students.id', $student->id)
+        ->get();
+        $examenes = DB::table('students')
+        ->join('exams', 'students.id', '=', 'exams.id_student')
+        ->join('classrooms', 'classrooms.id_class', '=', 'exams.id_class')
+        ->select('students.*', 'classrooms.name AS clase', 'exams.*')
+        ->where('students.id', $student->id)
+        ->get();
+        return view('students_details',compact('student','users','trabajos','examenes'));
     }
 
     /**
