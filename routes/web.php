@@ -44,6 +44,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/students/logout', [studentsAuthController::class, 'logout'])->name('students.logout');
     Route::post('classroom/addExam', [classroomController::class, 'addExam'])->name('classroom.addexam');
     Route::post('classroom/storeExam', [classroomController::class, 'storeExam'])->name('classroom.storeexam');
+    Route::post('classroom/addWork', [classroomController::class, 'addWork'])->name('classroom.addwork');
+    Route::post('classroom/storeWork', [classroomController::class, 'storeWork'])->name('classroom.storework');
     Route::resource('classroom',classroomController::class);
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     

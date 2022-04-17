@@ -23,4 +23,8 @@ class classroom extends Model
     {
     return $this->belongsTo(schedule::class,'id_schedule','id_schedule');
     }
+    public function percentage()
+    {
+    return $this->hasOne(percentage::class,'id_class','id_class');
+    }
 }

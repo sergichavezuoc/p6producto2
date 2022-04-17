@@ -8,8 +8,11 @@ use App\Models\courses;
 use App\Models\teachers;
 use App\Models\schedule;
 use App\Models\exams;
+use App\Models\percentage;
+use App\Models\works;
 use App\Models\students;
 use DB;
+DB::enableQueryLog();
 class classroomController extends Controller
 {
     /**
@@ -36,8 +39,8 @@ class classroomController extends Controller
         //$students = students::latest()->paginate(5);
         //$courses = courses::latest()->paginate(5);
         //dd($students);
-        $teachers = teachers::latest()->paginate(5);
-        $courses = courses::latest()->paginate(5);
+        $teachers = teachers::get();
+        $courses = courses::get();
         return view('add_classroom',compact('teachers','courses'));
     }
 
@@ -52,6 +55,12 @@ class classroomController extends Controller
     exams::create($request->all());
     return redirect()->route('classroom.index')
         ->with('success','Examen añadido correctamente.');
+    }
+    public function storeWork(Request $request)
+    {
+    works::create($request->all());
+    return redirect()->route('classroom.index')
+        ->with('success','Trabajo añadido correctamente.');
     }
     public function store(Request $request)
     {
@@ -68,6 +77,7 @@ class classroomController extends Controller
         $sentencia = DB::select("SHOW TABLE status LIKE 'classrooms'");
         $nextId = $sentencia[0]->Auto_increment;
         $schedule= schedule::create(['id_class' => $nextId,'time_start' => $request['time_start'],'time_end' => $request['time_end'],'day' => $request['day']]);
+        percentage::create(['id_class' => $nextId,'id_course' => $request['id_course'],'continuous_assessment' => $request['continuous_assessment'],'exams' => $request['exams']]);
         $scheduleId= $schedule -> id_schedule;
         //dd($request);
         //return $request->all();
@@ -89,13 +99,13 @@ class classroomController extends Controller
         ->join('enrollments', 'students.id', '=', 'enrollments.id_student')
         ->join('courses', 'courses.id_course', '=', 'enrollments.id_course')
         ->join('classrooms', 'courses.id_course', '=', 'classrooms.id_course')
-        ->select('students.name AS nombre','students.surname AS apellido', 'courses.*', 'enrollments.*', 'classrooms.*')
+        ->select('students.name AS nombre','students.surname AS apellido','students.id', 'courses.*', 'enrollments.*', 'classrooms.*')
         ->where('classrooms.id_class', $classroom->id_class)
         ->get();
         $trabajos = DB::table('students')
         ->join('works', 'students.id', '=', 'works.id_student')
         ->join('classrooms', 'classrooms.id_class', '=', 'works.id_class')
-        ->select('students.*', 'classrooms.*', 'works.*')
+        ->select('students.*','students.name AS nombre','students.surname AS apellido', 'classrooms.*', 'works.name AS trabajo', 'works.mark AS nota')
         ->where('classrooms.id_class', $classroom->id_class)
         ->get();
         $examenes = DB::table('students')
@@ -104,10 +114,13 @@ class classroomController extends Controller
         ->select('students.*', 'students.name AS nombre','students.surname AS apellido', 'exams.name AS examen', 'exams.mark AS nota')
         ->where('classrooms.id_class', $classroom->id_class)
         ->get();
+        $percentage = percentage::where('id_class', $classroom->id_class)
+        ->first();
+
         //
         //$student = enrollment::find(1)->student;
         //$course = enrollment::find(1)->course;
-        return view('classroom_details',compact('classroom','users','trabajos','examenes'));
+        return view('classroom_details',compact('classroom','users','trabajos','examenes','percentage'));
     }
 
     /**
@@ -119,7 +132,19 @@ class classroomController extends Controller
     public function edit(classroom $classroom)
     {
         //
-        return view('edit_classroom',compact('classroom'));
+        $percentage = percentage::where('id_class', $classroom->id_class)
+        ->first();
+        $schedule = schedule::where('id_schedule', $classroom->id_schedule)
+        ->first();
+        //dd(DB::getQueryLog());
+        //echo "horario ".$classroom->id_schedule;
+        //print_r($percentage);
+        //print_r($schedule);
+        //exit;
+        
+        $teachers = teachers::get();
+        $courses = courses::get();
+        return view('edit_classroom',compact('classroom','percentage','teachers','courses','schedule'));
     }
 
     /**
@@ -135,6 +160,12 @@ class classroomController extends Controller
         $students =students::get();
         return view('add_exam_classroom',compact('students','classrooms','request'));
     }
+    public function addWork(Request $request)
+    {
+        $classrooms =classroom::get();
+        $students =students::get();
+        return view('add_work_classroom',compact('students','classrooms','request'));
+    }
     public function update(Request $request, classroom $classroom)
     {
         //
@@ -145,9 +176,14 @@ class classroomController extends Controller
             'time_end' => 'required',
             'day' => 'required',
         ]);
-
-        $classroom->update($request->all());
-
+        $schedule = schedule::where('id_schedule', $classroom->id_schedule)
+        ->first();
+        $schedule->update(['id_class' => $classroom->id_class,'time_start' => $request['time_start'],'time_end' => $request['time_end'],'day' => $request['day']]);
+        $percentage = percentage::where('id_class', $classroom->id_class)
+        ->first();
+        $percentage->update(['id_class'=>$classroom->id_class,'id_course' =>$request['id_course'],'continuous_assessment' =>$request['continuous_assessment'],'exams'=>$request["exams"]]);
+        $classroom->update(['id_teacher' => $request['id_teacher'],'id_course' => $request['id_course'],'name' => $request['name'],'color' => $request['color']]);
+ 
         return redirect()->route('classroom.index')
             ->with('success','Classroom updated successfully');
     }

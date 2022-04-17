@@ -19,6 +19,7 @@
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Clase</th>
                         <th scope="col">Profesor</th>
                         <th scope="col">Curso</th>
                         <th scope="col">Hora Ini</th>
@@ -33,6 +34,7 @@
                     @foreach($classrooms as $classroom)
                     <tr>
                         <td>{{$classroom->id_class}}</td>
+                        <td>{{$classroom->name}}</td>
                         <td>{{$classroom ->teachers ->name}}</td>
                         <td>{{$classroom->courses -> name}}</td>
                         <td>{{$classroom ->schedule ->time_start}}</td>

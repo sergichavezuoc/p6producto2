@@ -75,13 +75,13 @@ class studentsController extends Controller
         $trabajos = DB::table('students')
         ->join('works', 'students.id', '=', 'works.id_student')
         ->join('classrooms', 'classrooms.id_class', '=', 'works.id_class')
-        ->select('students.*', 'classrooms.*', 'works.*')
+        ->select('students.*', 'classrooms.*', 'classrooms.name AS clase', 'works.*', 'works.name AS trabajo', 'works.mark AS nota')
         ->where('students.id', $student->id)
         ->get();
         $examenes = DB::table('students')
         ->join('exams', 'students.id', '=', 'exams.id_student')
         ->join('classrooms', 'classrooms.id_class', '=', 'exams.id_class')
-        ->select('students.*', 'classrooms.name AS clase', 'exams.*')
+        ->select('students.*', 'classrooms.name AS clase', 'exams.*', 'exams.name AS examen', 'exams.mark AS nota')
         ->where('students.id', $student->id)
         ->get();
         return view('students_details',compact('student','users','trabajos','examenes'));
