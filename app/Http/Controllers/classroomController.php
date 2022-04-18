@@ -116,7 +116,8 @@ class classroomController extends Controller
         ->get();
         $percentage = percentage::where('id_class', $classroom->id_class)
         ->first();
-
+        $notas_examenes=DB::select("SELECT COUNT(exams.id_exam) AS total_notas, SUM(exams.mark) AS nota_examenes, SUM(exams.mark)/COUNT(exams.id_exam) AS media_examenes, students.name, classrooms.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollments ON enrollments.id_student=students.id INNER JOIN courses ON courses.id_course=enrollments.id_course  INNER JOIN classrooms ON classrooms.id_course=courses.id_course LEFT JOIN exams ON exams.id_class=classrooms.id_class AND exams.id_student=students.id WHERE exams.mark IS NOT NULL AND classrooms.id_class=".$classroom->id_class." GROUP by classrooms.id_class,students.id");
+        $notas_trabajos=DB::select("SELECT COUNT(works.id_work) AS total_notas, SUM(works.mark) AS nota_trabajos, SUM(works.mark)/COUNT(works.id_work) AS media_trabajos, students.name, classrooms.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollments ON enrollments.id_student=students.id INNER JOIN courses ON courses.id_course=enrollments.id_course  INNER JOIN classrooms ON classrooms.id_course=courses.id_course LEFT JOIN works ON works.id_class=classrooms.id_class AND works.id_student=students.id WHERE works.mark IS NOT NULL AND classrooms.id_class=".$classroom->id_class." GROUP by classrooms.id_class,students.id");
         //
         //$student = enrollment::find(1)->student;
         //$course = enrollment::find(1)->course;

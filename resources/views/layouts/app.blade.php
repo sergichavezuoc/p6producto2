@@ -39,8 +39,12 @@
       <a class="nav-link" href="{{ route('classroom.index') }}">Clases y horarios</a>
     </li>
     @else
+    
     <li class="nav-item">
       <a class="nav-link" href="{{ route('usuarios.index') }}">Calendario</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('usuarios.edit',Auth::guard('students')->user()->id) }}">Perfil</a>
     </li>
     <li>
     <form method="get" action="{{ route('admin.logout') }}">

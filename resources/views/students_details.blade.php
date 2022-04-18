@@ -28,6 +28,16 @@
   <p>{{$student->email}}</p>
   <p>{{$student->nif}}</p>
   <p>{{$student->telephone}}</p>
+  <h4>Notas medias</h4>
+  <p><b>Examenes</b></p>
+  @foreach($notas_examenes as $notas_examen)
+  <p>{{$notas_examen->clase}}: {{$notas_examen->media_examenes}}</p>
+  @endforeach
+  <p><b>Trabajos</b></p>
+  @foreach($notas_trabajos as $notas_trabajo)
+  <p>{{$notas_trabajo->clase}}: {{$notas_trabajo->media_trabajos}}</p>
+  @endforeach
+
   </div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
   <h4>Cursos matriculados</h4>
@@ -93,7 +103,7 @@
                     <table id="tabla2" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>Estudiante</th>
+                <th>Clase</th>
                 <th>Trabajo</th>
                 <th>Nota</th>
             </tr>
@@ -110,7 +120,7 @@
                    </tbody>
         <tfoot>
             <tr>
-            <th>Estudiante</th>
+            <th>Clase</th>
                 <th>Trabajo</th>
                 <th>Nota</th>
             </tr>

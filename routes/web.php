@@ -55,4 +55,5 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 Route::resource('usuarios',usuariosController::class);
+Route::get('students/perfil', [classroomController::class, 'editarPerfil'])->name('classroom.editarperfil');
 require __DIR__.'/auth.php';
