@@ -19,10 +19,11 @@
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav mr-auto">
+
+    @if (Auth::guard('admin')->check())
     <li class="nav-item">
       <a class="nav-link" href="/admin/dashboard">Inicio</a>
     </li>
-    @if (Auth::guard('admin')->check())
     <li class="nav-item">
       <a class="nav-link" href="{{ route('students.index') }}">Estudiantes</a>
     </li>
@@ -39,9 +40,14 @@
       <a class="nav-link" href="{{ route('classroom.index') }}">Clases y horarios</a>
     </li>
     @else
-    
+    <li class="nav-item">
+      <a class="nav-link" href="/students/dashboard">Inicio</a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" href="{{ route('usuarios.index') }}">Calendario</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/students/expediente">Expediente</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{{ route('usuarios.edit',Auth::guard('students')->user()->id) }}">Perfil</a>

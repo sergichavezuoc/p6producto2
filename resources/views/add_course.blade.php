@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-12 mt-1 mr-1">
                     <div class="float-right">
-                        <a class="btn btn-primary" href="{{ route('courses.index') }}"> Back</a>
+                        <a class="btn btn-primary" href="{{ route('courses.index') }}"> Volver</a>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@
                                 placeholder="active">
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">Add Record</button>
+                        <button type="submit" class="btn btn-primary">Entrar</button>
                     </form>
                 </div>
 

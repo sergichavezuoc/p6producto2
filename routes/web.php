@@ -35,6 +35,7 @@ Route::post('/students/login', [studentsAuthController::class, 'login'])->name('
 Route::get('/students/logout', [studentsAuthController::class, 'logout'])->name('students.logout');
 Route::group(['middleware' => ['auth:students']], function () {
     Route::get('students/dashboard', [usuariosController::class, 'index'])->name('usuarios.index');
+    Route::get('students/expediente', [usuariosController::class, 'expediente'])->name('students.expediente');
 }); 
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('students',studentsController::class);
@@ -47,7 +48,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('classroom/addWork', [classroomController::class, 'addWork'])->name('classroom.addwork');
     Route::post('classroom/storeWork', [classroomController::class, 'storeWork'])->name('classroom.storework');
     Route::resource('classroom',classroomController::class);
-    Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('login');
     
 
 });
@@ -56,4 +57,5 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 Route::resource('usuarios',usuariosController::class);
 Route::get('students/perfil', [classroomController::class, 'editarPerfil'])->name('classroom.editarperfil');
+
 require __DIR__.'/auth.php';

@@ -4,11 +4,11 @@
         <div class="col-md-8 offset-md-2">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h4>Laravel 8 Ajax CRUD Tutorial Using Mysql Datatable</h4>
+                    <h4>Formulario de edición de profesor</h4>
                 </div>
                 <div class="col-md-12 mt-1 mr-1">
                     <div class="float-right">
-                        <a class="btn btn-primary" href="{{ route('profesor.index') }}"> Back</a>
+                        <a class="btn btn-primary" href="{{ route('profesor.index') }}"> Atrás</a>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -28,7 +28,7 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="name">Name:</label>
+                            <label for="name">Nombre:</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -38,7 +38,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="surname">Surname:</label>
+                            <label for="surname">Apellidos:</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -68,7 +68,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="emai">Telephone:</label>
+                            <label for="emai">Teléfono:</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -78,7 +78,7 @@
 
                         </div>
                         <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Update Record</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
                 </div>
 

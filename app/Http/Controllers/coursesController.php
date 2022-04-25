@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\courses;
+use DB;
 class coursesController extends Controller
 {
     /**
@@ -65,7 +66,18 @@ class coursesController extends Controller
     public function show(courses $course)
     {
         //
-        return view('courses_details',compact('course'));
+        $users = DB::table('courses')
+        ->join('enrollments', 'courses.id_course', '=', 'enrollments.id_course')
+        ->join('students', 'students.id', '=', 'enrollments.id_student')
+        ->select('students.*','students.name as nombre', 'courses.*', 'enrollments.*')
+        ->where('courses.id_course', $course->id_course)
+        ->get();
+        $clases = DB::table('classrooms')
+        ->join('courses', 'courses.id_course', '=', 'classrooms.id_course')
+        ->select('courses.*', 'classrooms.*','classrooms.name as clase')
+        ->where('courses.id_course', $course->id_course)
+        ->get();
+        return view('courses_details',compact('course','users','clases'));
     }
 
     /**

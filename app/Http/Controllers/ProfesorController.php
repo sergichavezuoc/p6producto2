@@ -65,7 +65,9 @@ class ProfesorController extends Controller
     public function show(teachers $profesor)
     {
         //dd($profesor);
-       return view('profesor_details',compact('profesor'));
+        $classes = teachers::find(1)->classroom
+        ->where('id_teacher', $profesor->id_teacher);
+       return view('profesor_details',compact('profesor','classes'));
     }
 
     /**
@@ -99,7 +101,7 @@ class ProfesorController extends Controller
         $profesor->update($request->all());
 
         return redirect()->route('profesor.index')
-            ->with('success','Profesor updated successfully');
+            ->with('success','Profesor actualizado correctamente');
     }
 
     /**
@@ -113,6 +115,6 @@ class ProfesorController extends Controller
         $profesor->delete();
 
         return redirect()->route('profesor.index')
-            ->with('success','Profesor deleted successfully');
+            ->with('success','Profesor borrado correctamente');
     }
 }
