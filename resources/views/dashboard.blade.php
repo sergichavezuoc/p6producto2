@@ -1,22 +1,19 @@
 @extends('layouts.app')
 @section('main-content')
-      
-            <div class="row">
-                <div class="col-6 offset-3">
-                    <h1 class="text-center m-5">Usuario: Bienvenido!</h1>
-                    @if(\Session::has('error'))
-                        <div class="alert alert-danger">{{ \Session::get('error') }}</div>
-                    @endif
-                    <div class="container">
-                        Esta es la pagina principal para alumnos
-                    <form method="get" action="{{ route('admin.logout') }}">
-                        @csrf
-                        <div class="row mt-3">
-                            <button type="submit" class="btn">Desconectar</button>
+@if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    @endif
+<h5 text-align: center>Hola,</h5>
+
+<h2>Configura tu perfil como lo desees. </h2>
+    <br>
+    <div class="alert alert-info">Aquí podrás hacer modificación del nombre de usuario, correo electrónico y contraseña.</div>
+    <div class="alert alert-info">En la opción calendario, puedes visualizar las siguientes clases</div>
+    <div class="alert alert-info">En la opción expediente, puedes visualizar tus notas por asignaturas y divididas en trabajos y exámenes</div>
+    <div class="alert alert-info">En tu perfil, puedes activar o desactivar las alertas que quieres recibir cuando se introduzcan notas de exámenes, trabajos y evaluación continua</div>
+
       
             @endsection
 

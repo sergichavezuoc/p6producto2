@@ -65,7 +65,7 @@ class ProfesorController extends Controller
     public function show(teachers $profesor)
     {
         //dd($profesor);
-        $classes = teachers::find(1)->classroom
+        $classes = teachers::find($profesor->id_teacher)->classroom
         ->where('id_teacher', $profesor->id_teacher);
        return view('profesor_details',compact('profesor','classes'));
     }

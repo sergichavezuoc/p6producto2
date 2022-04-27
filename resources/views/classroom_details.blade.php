@@ -8,6 +8,13 @@
     $('#tabla2').DataTable();
 } );
 </script>
+<div class="col-md-12">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+                </div>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Datos generales</button>
@@ -68,6 +75,7 @@
                 <th>Estudiante</th>
                 <th>Examen</th>
                 <th>Nota</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>                  
@@ -76,6 +84,7 @@
                    <td><a class="btn btn-info" href="{{ route('students.show',$examen->id) }}">{{$examen->nombre}} {{$examen->apellido}}</a></td> 
                    <td>{{$examen->examen}}</td> 
                    <td>{{$examen->nota}}</td> 
+                   <td><a class="btn btn-primary" href="{{ route('exams.edit',$examen->id_exam) }}">Modificar</a></td> 
                    </tr>  
                    @endforeach
                     
@@ -85,6 +94,7 @@
             <th>Estudiante</th>
                 <th>Examen</th>
                 <th>Nota</th>
+                <th>Editar</th>
             </tr>
         </tfoot>
     </table>
@@ -97,6 +107,7 @@
                 <th>Estudiante</th>
                 <th>Trabajo</th>
                 <th>Nota</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>                  
@@ -105,6 +116,7 @@
                    <td><a class="btn btn-info" href="{{ route('students.show',$trabajo->id) }}">{{$trabajo->nombre}} {{$trabajo->apellido}}</a></td> 
                    <td>{{$trabajo->trabajo}}</td> 
                    <td>{{$trabajo->nota}}</td> 
+                   <td><a class="btn btn-primary" href="{{ route('works.edit',$trabajo->id_work) }}">Modificar</a></td> 
                    </tr>  
                    @endforeach
                     
@@ -114,6 +126,7 @@
             <th>Estudiante</th>
                 <th>Trabajo</th>
                 <th>Nota</th>
+                <th>Editar</th>
             </tr>
         </tfoot>
     </table>

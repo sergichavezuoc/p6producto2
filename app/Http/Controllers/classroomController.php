@@ -105,13 +105,13 @@ class classroomController extends Controller
         $trabajos = DB::table('students')
         ->join('works', 'students.id', '=', 'works.id_student')
         ->join('classrooms', 'classrooms.id_class', '=', 'works.id_class')
-        ->select('students.*','students.name AS nombre','students.surname AS apellido', 'classrooms.*', 'works.name AS trabajo', 'works.mark AS nota')
+        ->select('students.*','students.name AS nombre','students.surname AS apellido', 'classrooms.*', 'works.name AS trabajo', 'works.mark AS nota','works.id_work')
         ->where('classrooms.id_class', $classroom->id_class)
         ->get();
         $examenes = DB::table('students')
         ->join('exams', 'students.id', '=', 'exams.id_student')
         ->join('classrooms', 'classrooms.id_class', '=', 'exams.id_class')
-        ->select('students.*', 'students.name AS nombre','students.surname AS apellido', 'exams.name AS examen', 'exams.mark AS nota')
+        ->select('students.*', 'students.name AS nombre','students.surname AS apellido', 'exams.name AS examen', 'exams.mark AS nota','exams.id_exam')
         ->where('classrooms.id_class', $classroom->id_class)
         ->get();
         $percentage = percentage::where('id_class', $classroom->id_class)

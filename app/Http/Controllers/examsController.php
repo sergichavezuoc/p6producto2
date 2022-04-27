@@ -3,30 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\classroom;
 use App\Models\enrollment;
 use App\Models\students;
 use App\Models\courses;
-class enrollmentController extends Controller
+use App\Models\exams;
+class examsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    /*
     public function index()
     {
         //
-        $enrollments =enrollment::with('students','courses')->get();
+        $works =works::with('students','classrooms')->get();
         //print_r($enrollments);
-        return view('indexe',compact('enrollments'))
+        return view('indexw',compact('works'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-
+*/
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    /*
     public function create()
     {
         //
@@ -35,13 +39,14 @@ class enrollmentController extends Controller
         //dd($students);
         return view('add_enrollment',compact('students'),compact('courses'));
     }
-
+*/
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /*
     public function store(Request $request)
     {
         //
@@ -58,13 +63,14 @@ class enrollmentController extends Controller
             ->with('success','Enrollment added successfully.');
 
     }
-
+*/
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function show(enrollment $enrollment)
     {
         //
@@ -72,19 +78,20 @@ class enrollmentController extends Controller
         $course = courses::where("id_course",$enrollment->id_course)->find($enrollment->id_course);
         return view('enrollment_details',compact('enrollment','course','student'));
     }
-
+*/
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(enrollment $enrollment)
+    
+    public function edit(exams $exam)
     {
         //
         $students = students::get();
-        $courses = courses::get();
-        return view('edit_enrollment',compact('enrollment','students','courses'));
+        $classrooms = classroom::get();
+        return view('edit_exam',compact('exam','students','classrooms'));
     }
 
     /**
@@ -94,19 +101,16 @@ class enrollmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, enrollment $enrollment)
+    public function update(Request $request, exams $exam)
     {
         //
-        $request->validate([
-            'id_student' => 'required',
-            'id_course' => 'required',
-            'status' => 'required',
-        ]);
 
-        $enrollment->update($request->all());
 
-        return redirect()->route('enrollment.index')
-            ->with('success','Inscripción actualizada correctamente');
+        $exam->update($request->all());
+$classroom = classroom::where('id_class',$exam->id_class)->first();
+
+        return redirect()->route('classroom.show',$classroom)
+            ->with('success','Examen modificado correctamente');
     }
 
     /**
@@ -115,12 +119,12 @@ class enrollmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(enrollment $enrollment)
+    public function destroy(exams $exam)
     {
         //
         $enrollment->delete();
 
-        return redirect()->route('enrollment.index')
-            ->with('success','Enrollment deleted successfully');
+        return redirect()->route('classroom.index')
+            ->with('success','Examen borrado correctamente');
     }
 }

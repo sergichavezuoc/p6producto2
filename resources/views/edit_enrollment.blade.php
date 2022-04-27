@@ -1,11 +1,10 @@
 @extends('layouts.app')
-
 @section('main-content')
-    <div class="row mt-1">
+    <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h4>Añadir inscripción</h4>
+                    <h4>Editar inscripción</h4>
                 </div>
                 <div class="col-md-12 mt-1 mr-1">
                     <div class="float-right">
@@ -15,7 +14,7 @@
                 <div class="col-md-12">
                     @if ($errors->any())
                         <div class="alert alert-danger">
-                            <strong>Whoops!</strong> Please input properly!!!<br><br>
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -25,6 +24,10 @@
                     @endif
                 </div>
                 <div class="col-md-12">
+                    <form method="post" action="{{route('enrollment.update',$enrollment->id_enrollment)}}">
+                        @csrf
+                        @method('PUT')
+                        <div class="col-md-12">
                     <form method="post" action="{{route('enrollment.store')}}">
                         @csrf
                         <div class="form-group">
@@ -35,7 +38,11 @@
                                 name="id_student"
                                 placeholder="id_student">
                                 @foreach($students as $student)
-                            <option value="{{$student->id}}">{{$student->name}}</option>
+                                <option value="{{$student->id}}"
+                                @if ($enrollment->id_student==$student->id)
+                                 selected="selected" 
+                                @endif
+                                >{{$student->name}}</option>
                 @endforeach
 </select>
                         </div>
@@ -48,7 +55,11 @@
                                 name="id_course"
                                 placeholder="id_course">
                                 @foreach($courses as $course)
-                            <option value="{{$course->id_course}}">{{$course->name}}</option>
+                            <option value="{{$course->id_course}}"
+                            @if ($enrollment->id_course==$course->id_course)
+                                 selected="selected" 
+                                @endif
+                            >{{$course->name}}</option>
                 @endforeach
 </select>  
                         </div>
@@ -59,11 +70,13 @@
                                 class="form-control"
                                 id="status"
                                 name="status"
-                                placeholder="status">
+                                placeholder="status"
+                                value="{{$enrollment->status}}"
+                                >
                         </div>
-                        
-                        
-                        <button type="submit" class="btn btn-primary">Entrar inscripción</button>
+  
+                        <button type="submit" class="btn btn-primary">Modificar inscripción
+                        </button>
                     </form>
                 </div>
 

@@ -39,6 +39,9 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('classroom.index') }}">Clases y horarios</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.logout') }}">Desconectar</a>
+    </li>
     @else
     <li class="nav-item">
       <a class="nav-link" href="/students/dashboard">Inicio</a>

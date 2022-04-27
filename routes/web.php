@@ -10,6 +10,8 @@ use App\Http\Controllers\enrollmentController;
 use App\Http\Controllers\classroomController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\usuariosController;
+use App\Http\Controllers\worksController;
+use App\Http\Controllers\examsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,10 +36,14 @@ Route::post('/students/registered', [studentsAuthController::class, 'customRegis
 Route::post('/students/login', [studentsAuthController::class, 'login'])->name('students.login');
 Route::get('/students/logout', [studentsAuthController::class, 'logout'])->name('students.logout');
 Route::group(['middleware' => ['auth:students']], function () {
-    Route::get('students/dashboard', [usuariosController::class, 'index'])->name('usuarios.index');
+    Route::get('students/dashboard', [usuariosController::class, 'dashboard'])->name('usuarios.dashboard');
     Route::get('students/expediente', [usuariosController::class, 'expediente'])->name('students.expediente');
+    Route::resource('usuarios',usuariosController::class);
+    Route::get('students/perfil', [classroomController::class, 'editarPerfil'])->name('classroom.editarperfil');
 }); 
 Route::group(['middleware' => ['auth:admin']], function () {
+    Route::resource('exams',examsController::class);
+    Route::resource('works',worksController::class);
     Route::resource('students',studentsController::class);
     Route::resource('courses',coursesController::class);
     Route::resource('enrollment',enrollmentController::class);
@@ -55,7 +61,6 @@ Route::group(['middleware' => ['auth:admin']], function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-Route::resource('usuarios',usuariosController::class);
-Route::get('students/perfil', [classroomController::class, 'editarPerfil'])->name('classroom.editarperfil');
+
 
 require __DIR__.'/auth.php';

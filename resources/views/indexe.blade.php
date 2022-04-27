@@ -4,9 +4,9 @@
         <div class="col-md-10 offset-md-2">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h4>Gestión de cursos</h4>
+                    <h4>Gestión de inscripciones</h4>
                 </div>
-                <a href="{{route('enrollment.create')}}" class=" btn btn-outline-success mb-2">Añadir Curso</a>
+                <a href="{{route('enrollment.create')}}" class=" btn btn-outline-success mb-2">Nueva inscripción</a>
 
                 <div class="col-md-12">
                     @if ($message = Session::get('success'))
