@@ -1,84 +1,117 @@
 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-        
-        <h2><b>Registro como estudiante</b></h2>
-        <!-- Validation Errors -->
+    <title>Acceso de Estudiante</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.0/examples/cover/cover.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column mb-5">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">PHProgrammer Accademy&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/">Inicio</a>
+        <a class="nav-link" href="/admin/login">Administrador</a>
+        <a class="nav-link active" href="/students/login">Estudiante</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('students.postregistration') }}">
+        <form class="form-signin" method="POST" action="{{ route('students.postregistration') }}">
             @csrf
-
+            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Registro de estudiante</h1>
             <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+            
+            
+            <label for="name" class="sr-only">Nombre</label>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
+                <input id="name" class="form-control" type="text" name="name" value=""  placeholder="Nombre" required autofocus />
+            
             <!-- Surname -->
-            <div class="mt-4">
-                <x-label for="surname" value="Surname" />
+            <label for="surname" class="sr-only">Apellido</label>
 
-                <x-input id="surname" class="block mt-1 w-full" type="text" name="surname" value="" required />
-            </div>
+                <input id="surname" class="form-control" type="text" name="surname" value="" placeholder="Apellido" required />
+            
             <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+            <label for="email" class="sr-only">Email</label>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
+                <input id="email" class="form-control" type="email" name="email" value="" placeholder="Password" required />
+            
             <!-- Username -->
-            <div class="mt-4">
-                <x-label for="username" value="Username" />
+            <label for="username" class="sr-only">Nombre de usuario</label>
 
-                <x-input id="username" class="block mt-1 w-full" type="text" name="username" value="" required />
-            </div>
-                        <!-- telhpone -->
-                        <div class="mt-4">
-                <x-label for="telephone" value="Telephone" />
+                <input id="username" class="form-control" type="text" name="username" value="" placeholder="Nombre de usuario" required />
+            
 
-                <x-input id="telephone" class="block mt-1 w-full" type="text" name="telephone" value="" required />
-            </div>
+                <label for="telephone" class="sr-only">Teléfono</label>
+
+                <input id="telephone" class="form-control" type="text" name="telephone" value="" placeholder="Teléfono" required />
+            
                         <!-- Nif -->
-                        <div class="mt-4">
-                <x-label for="nif" value="Nif" />
+                       
+                <label for="nif" class="sr-only">Nif</label>
 
-                <x-input id="nif" class="block mt-1 w-full" type="text" name="nif" value="" required />
-            </div>
+                <input id="nif" class="form-control" type="text" name="nif" value="" placeholder="Nif" required />
+            
+                
             <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+            
+            <label for="password" class="sr-only">Password</label>
 
-                <x-input id="password" class="block mt-1 w-full"
+                <input id="password" class="form-control"
                                 type="password"
                                 name="password"
+                                placeholder="Password"
                                 required autocomplete="new-password" />
-            </div>
+  <label for="password_confirmation" class="sr-only">Repite el password</label>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
+                <input id="password_confirmation" class="form-control"
                                 type="password"
+                                placeholder="Repite el password"
                                 name="password_confirmation" required />
-            </div>
+ 
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('students.login') }}">
-                    {{ __('Already registered?') }}
+               <div class="checkbox mb-3">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/students/login">
+                   Ya estás registrado?
                 </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+                </div>
+ 
+                <button class="btn btn-lg btn-primary btn-block" style="background-color:#000;border-color:#000" type="submit">Registrarse</button>
+            
         </form>
-    </x-auth-card>
-</x-guest-layout>
+        </main>
+
+<footer class="mastfoot mt-auto">
+</footer>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+<script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,4 +1,63 @@
-<!DOCTYPE html>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>PHProgrammer Academy</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/cover/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/cover/cover.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">PHProgrammer Accademy</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Inicio</a>
+            <a class="nav-link" href="/admin/login">Administrador</a>
+            <a class="nav-link" href="/students/login">Estudiante</a>
+          </nav>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading">Area de alumnos</h1>
+        <p class="lead">Podréis seleccionar los cursos en los que estáis inscritos. Visualizar vuestras asignaturas y clases y vuestras notas de evaluación continua, exámenes y notas finales.</p>
+        <h1 class="cover-heading">Area de administrador</h1>
+        <p class="lead">Acceso y modificación de los expedientes de los alumnos con las asignaturas que cursa cada uno y las notas de los trabajos y exámenes. También a todas las asignaturas, sus agendas y porcentajes de notas.</p>
+
+      </main>
+
+      <footer class="mastfoot mt-auto">
+      </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+<!--
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,7 +85,7 @@
         </div>
     </header>
 
-    <!-- Aquí está el contenido principal de nuestra página -->
+  
     <br>
     <main class="principal">
         <div class="typewriter">
@@ -91,4 +150,4 @@
 
 </body>
 
-</html>
+</html>-->

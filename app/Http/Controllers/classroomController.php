@@ -74,7 +74,7 @@ class classroomController extends Controller
             'name' => 'required',
             'color' => 'required',
         ]);
-        $sentencia = DB::select("SHOW TABLE status LIKE 'classrooms'");
+        $sentencia = DB::select("SHOW TABLE status LIKE 'class'");
         $nextId = $sentencia[0]->Auto_increment;
         $schedule= schedule::create(['id_class' => $nextId,'time_start' => $request['time_start'],'time_end' => $request['time_end'],'day' => $request['day']]);
         percentage::create(['id_class' => $nextId,'id_course' => $request['id_course'],'continuous_assessment' => $request['continuous_assessment'],'exams' => $request['exams']]);
@@ -96,28 +96,28 @@ class classroomController extends Controller
     public function show(classroom $classroom)
     {
         $users = DB::table('students')
-        ->join('enrollments', 'students.id', '=', 'enrollments.id_student')
-        ->join('courses', 'courses.id_course', '=', 'enrollments.id_course')
-        ->join('classrooms', 'courses.id_course', '=', 'classrooms.id_course')
-        ->select('students.name AS nombre','students.surname AS apellido','students.id', 'courses.*', 'enrollments.*', 'classrooms.*')
-        ->where('classrooms.id_class', $classroom->id_class)
+        ->join('enrollment', 'students.id', '=', 'enrollment.id_student')
+        ->join('courses', 'courses.id_course', '=', 'enrollment.id_course')
+        ->join('class', 'courses.id_course', '=', 'class.id_course')
+        ->select('students.name AS nombre','students.surname AS apellido','students.id', 'courses.*', 'enrollment.*', 'class.*')
+        ->where('class.id_class', $classroom->id_class)
         ->get();
         $trabajos = DB::table('students')
         ->join('works', 'students.id', '=', 'works.id_student')
-        ->join('classrooms', 'classrooms.id_class', '=', 'works.id_class')
-        ->select('students.*','students.name AS nombre','students.surname AS apellido', 'classrooms.*', 'works.name AS trabajo', 'works.mark AS nota','works.id_work')
-        ->where('classrooms.id_class', $classroom->id_class)
+        ->join('class', 'class.id_class', '=', 'works.id_class')
+        ->select('students.*','students.name AS nombre','students.surname AS apellido', 'class.*', 'works.name AS trabajo', 'works.mark AS nota','works.id_work')
+        ->where('class.id_class', $classroom->id_class)
         ->get();
         $examenes = DB::table('students')
         ->join('exams', 'students.id', '=', 'exams.id_student')
-        ->join('classrooms', 'classrooms.id_class', '=', 'exams.id_class')
+        ->join('class', 'class.id_class', '=', 'exams.id_class')
         ->select('students.*', 'students.name AS nombre','students.surname AS apellido', 'exams.name AS examen', 'exams.mark AS nota','exams.id_exam')
-        ->where('classrooms.id_class', $classroom->id_class)
+        ->where('class.id_class', $classroom->id_class)
         ->get();
         $percentage = percentage::where('id_class', $classroom->id_class)
         ->first();
-        $notas_examenes=DB::select("SELECT COUNT(exams.id_exam) AS total_notas, SUM(exams.mark) AS nota_examenes, SUM(exams.mark)/COUNT(exams.id_exam) AS media_examenes, students.name, classrooms.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollments ON enrollments.id_student=students.id INNER JOIN courses ON courses.id_course=enrollments.id_course  INNER JOIN classrooms ON classrooms.id_course=courses.id_course LEFT JOIN exams ON exams.id_class=classrooms.id_class AND exams.id_student=students.id WHERE exams.mark IS NOT NULL AND classrooms.id_class=".$classroom->id_class." GROUP by classrooms.id_class,students.id");
-        $notas_trabajos=DB::select("SELECT COUNT(works.id_work) AS total_notas, SUM(works.mark) AS nota_trabajos, SUM(works.mark)/COUNT(works.id_work) AS media_trabajos, students.name, classrooms.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollments ON enrollments.id_student=students.id INNER JOIN courses ON courses.id_course=enrollments.id_course  INNER JOIN classrooms ON classrooms.id_course=courses.id_course LEFT JOIN works ON works.id_class=classrooms.id_class AND works.id_student=students.id WHERE works.mark IS NOT NULL AND classrooms.id_class=".$classroom->id_class." GROUP by classrooms.id_class,students.id");
+        $notas_examenes=DB::select("SELECT COUNT(exams.id_exam) AS total_notas, SUM(exams.mark) AS nota_examenes, SUM(exams.mark)/COUNT(exams.id_exam) AS media_examenes, students.name, class.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollment ON enrollment.id_student=students.id INNER JOIN courses ON courses.id_course=enrollment.id_course  INNER JOIN class ON class.id_course=courses.id_course LEFT JOIN exams ON exams.id_class=class.id_class AND exams.id_student=students.id WHERE exams.mark IS NOT NULL AND class.id_class=".$classroom->id_class." GROUP by class.id_class,students.id");
+        $notas_trabajos=DB::select("SELECT COUNT(works.id_work) AS total_notas, SUM(works.mark) AS nota_trabajos, SUM(works.mark)/COUNT(works.id_work) AS media_trabajos, students.name, class.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollment ON enrollment.id_student=students.id INNER JOIN courses ON courses.id_course=enrollment.id_course  INNER JOIN class ON class.id_course=courses.id_course LEFT JOIN works ON works.id_class=class.id_class AND works.id_student=students.id WHERE works.mark IS NOT NULL AND class.id_class=".$classroom->id_class." GROUP by class.id_class,students.id");
         //
         //$student = enrollment::find(1)->student;
         //$course = enrollment::find(1)->course;
@@ -159,13 +159,13 @@ class classroomController extends Controller
     {
         $classrooms =classroom::get();
         $students =students::get();
-        return view('add_exam_classroom',compact('students','classrooms','request'));
+        return view('add_exam_classroom',compact('students','class','request'));
     }
     public function addWork(Request $request)
     {
         $classrooms =classroom::get();
         $students =students::get();
-        return view('add_work_classroom',compact('students','classrooms','request'));
+        return view('add_work_classroom',compact('students','class','request'));
     }
     public function update(Request $request, classroom $classroom)
     {

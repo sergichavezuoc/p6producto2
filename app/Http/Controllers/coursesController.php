@@ -67,14 +67,14 @@ class coursesController extends Controller
     {
         //
         $users = DB::table('courses')
-        ->join('enrollments', 'courses.id_course', '=', 'enrollments.id_course')
-        ->join('students', 'students.id', '=', 'enrollments.id_student')
-        ->select('students.*','students.name as nombre', 'courses.*', 'enrollments.*')
+        ->join('enrollment', 'courses.id_course', '=', 'enrollment.id_course')
+        ->join('students', 'students.id', '=', 'enrollment.id_student')
+        ->select('students.*','students.name as nombre', 'courses.*', 'enrollment.*')
         ->where('courses.id_course', $course->id_course)
         ->get();
-        $clases = DB::table('classrooms')
-        ->join('courses', 'courses.id_course', '=', 'classrooms.id_course')
-        ->select('courses.*', 'classrooms.*','classrooms.name as clase')
+        $clases = DB::table('class')
+        ->join('courses', 'courses.id_course', '=', 'class.id_course')
+        ->select('courses.*', 'class.*','class.name as clase')
         ->where('courses.id_course', $course->id_course)
         ->get();
         return view('courses_details',compact('course','users','clases'));
