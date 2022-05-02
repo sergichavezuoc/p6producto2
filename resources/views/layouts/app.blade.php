@@ -7,8 +7,13 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+        <style>
+          .nav-link{color:#000;font-weight:bolder};
+          .navbar navbar-expand-lg navbar-light bg-light {background-color:#f5dbdb!important;};
+        </style>
       </head>
     <body>
+
     <header class="site-header">  
         <div class="barra">
             <p class="logoTitle"><b>PHP</b>rogrammer <b>Academy</b></p>
