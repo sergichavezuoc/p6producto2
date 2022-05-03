@@ -36,9 +36,6 @@ class classroomController extends Controller
     public function create()
     {
         //
-        //$students = students::latest()->paginate(5);
-        //$courses = courses::latest()->paginate(5);
-        //dd($students);
         $teachers = teachers::get();
         $courses = courses::get();
         return view('add_classroom',compact('teachers','courses'));
@@ -118,9 +115,7 @@ class classroomController extends Controller
         ->first();
         $notas_examenes=DB::select("SELECT COUNT(exams.id_exam) AS total_notas, SUM(exams.mark) AS nota_examenes, SUM(exams.mark)/COUNT(exams.id_exam) AS media_examenes, students.name, class.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollment ON enrollment.id_student=students.id INNER JOIN courses ON courses.id_course=enrollment.id_course  INNER JOIN class ON class.id_course=courses.id_course LEFT JOIN exams ON exams.id_class=class.id_class AND exams.id_student=students.id WHERE exams.mark IS NOT NULL AND class.id_class=".$classroom->id_class." GROUP by class.id_class,students.id");
         $notas_trabajos=DB::select("SELECT COUNT(works.id_work) AS total_notas, SUM(works.mark) AS nota_trabajos, SUM(works.mark)/COUNT(works.id_work) AS media_trabajos, students.name, class.name AS clase, students.id AS estudiante FROM students INNER JOIN enrollment ON enrollment.id_student=students.id INNER JOIN courses ON courses.id_course=enrollment.id_course  INNER JOIN class ON class.id_course=courses.id_course LEFT JOIN works ON works.id_class=class.id_class AND works.id_student=students.id WHERE works.mark IS NOT NULL AND class.id_class=".$classroom->id_class." GROUP by class.id_class,students.id");
-        //
-        //$student = enrollment::find(1)->student;
-        //$course = enrollment::find(1)->course;
+     
         return view('classroom_details',compact('classroom','users','trabajos','examenes','percentage'));
     }
 

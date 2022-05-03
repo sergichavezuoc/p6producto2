@@ -15,14 +15,14 @@
     <body>
 
     <header class="site-header">  
-        <div class="barra">
+        <div class="barra" style="margin-top:20px;margin-left:20px">
             <p class="logoTitle"><b>PHP</b>rogrammer <b>Academy</b></p>
 
         </div>    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-top: 0.5px;padding-bottom: 1px;background-color:#000000!important">
 
 
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<div class="collapse navbar-collapse" style="background-color:#f5e1da;" id="navbarSupportedContent">
   <ul class="navbar-nav mr-auto">
 
     @if (Auth::guard('admin')->check())
@@ -74,7 +74,7 @@
 </nav>
 <style type="text/css">
     .container{
-        margin-top:10px;
+        margin-top:30px;
     }
     h4{
         margin-bottom:20px;

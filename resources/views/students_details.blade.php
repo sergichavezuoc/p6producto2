@@ -53,7 +53,7 @@
         <tbody>                  
                    @foreach($users as $curso)
                    <tr>
-                   <td><a class="btn btn-info" href="{{ route('courses.show',$curso->id_course) }}">{{$curso->name}}</a></td> 
+                   <td><a class="primary-link" href="{{ route('courses.show',$curso->id_course) }}">{{$curso->name}}</a></td> 
                    <td>{{$curso->date_start}}</td> 
                    <td>{{$curso->date_end}}</td> 
                    </tr>  
@@ -82,7 +82,7 @@
         <tbody>                  
                    @foreach($examenes as $examen)
                    <tr>
-                   <td><a class="btn btn-info" href="{{ route('classroom.show',$examen->id_class) }}">{{$examen->clase}}</a></td> 
+                   <td><a class="primary-link" href="{{ route('classroom.show',$examen->id_class) }}">{{$examen->clase}}</a></td> 
                    <td>{{$examen->examen}}</td> 
                    <td>{{$examen->nota}}</td> 
                    </tr>  
@@ -111,7 +111,7 @@
         <tbody>                  
                    @foreach($trabajos as $trabajo)
                    <tr>
-                   <td><a class="btn btn-info" href="{{ route('classroom.show',$trabajo->id_class) }}">{{$trabajo->clase}}</a></td> 
+                   <td><a class="primary-link" href="{{ route('classroom.show',$trabajo->id_class) }}">{{$trabajo->clase}}</a></td> 
                    <td>{{$trabajo->trabajo}}</td> 
                    <td>{{$trabajo->nota}}</td> 
                    </tr>  

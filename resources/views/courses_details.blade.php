@@ -39,7 +39,7 @@
         <tbody>                  
                    @foreach($users as $user)
                    <tr>
-                   <td><a class="btn btn-info" href="{{ route('students.show',$user->id) }}">{{$user->nombre}}</a></td> 
+                   <td><a class="primary-link" href="{{ route('students.show',$user->id) }}">{{$user->nombre}}</a></td> 
                    <td>{{$user->surname}}</td> 
                    <td>{{$user->email}}</td> 
                    </tr>  
@@ -70,7 +70,7 @@
                    @foreach($clases as $clase)
                    <tr>
                    <td>{{$clase->id_class}}</td> 
-                   <td><a class="btn btn-info" href="{{ route('classroom.show',$clase->id_class) }}">{{$clase->clase}}</a></td> 
+                   <td><a class="primary-link" href="{{ route('classroom.show',$clase->id_class) }}">{{$clase->clase}}</a></td> 
                   <td>{{$clase->color}}</td> 
                    </tr>  
                    @endforeach

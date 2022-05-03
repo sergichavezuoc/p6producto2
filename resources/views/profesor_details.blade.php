@@ -36,7 +36,7 @@
                    @foreach($classes as $clase)
                    <tr>
                    <td>{{$clase->id_class}}</td> 
-                   <td><a class="btn btn-info" href="{{ route('classroom.show',$clase->id_class) }}">{{$clase->name}}</a></td> 
+                   <td><a class="primary-link" href="{{ route('classroom.show',$clase->id_class) }}">{{$clase->name}}</a></td> 
                    
                    <td>{{$clase->color}}</td> 
                    </tr>  

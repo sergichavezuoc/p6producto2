@@ -2,7 +2,7 @@
 @section('main-content')
 
     <div class="row">
-        <div class="col-md-10 offset-md-2">
+        <div class="col-md-10 offset-md-1">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h4>Gestión de cursos</h4>
