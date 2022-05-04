@@ -6,12 +6,7 @@
                         </div>
                     @endif
 <h5 text-align: center>Hola {{Auth::guard('students')->user()->name}},</h5>
-<h5>Estás inscrito en los siguientes cursos</h5>
-<div class="alert alert-warning">
-@foreach($cursos as $curso)
-{{$curso->curso}} <br />
-@endforeach
-</div>
+
 <h2>Configura tu perfil como lo desees. </h2>
     <br>
     <div class="alert alert-info">Aquí podrás hacer modificación del nombre de usuario, correo electrónico y contraseña.</div>
