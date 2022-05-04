@@ -23,7 +23,11 @@ Sin trabajos evaluados
 {{$nota->media_trabajos}}
 @endif
 <br />
+@php
+$mediafinal= ($nota->evaluacion_examenes * $nota->media_examenes/100) + ($nota->evaluacion_continua * $notas_trabajo->nota_trabajo/100);
 
+echo "<b>Nota final: </b>".$mediafinal;
+@endphp
 @endforeach
   
 @endsection

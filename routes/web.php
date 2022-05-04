@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth:students']], function () {
     Route::get('students/expediente', [usuariosController::class, 'expediente'])->name('students.expediente');
     Route::resource('usuarios',usuariosController::class);
     Route::get('students/perfil', [classroomController::class, 'editarPerfil'])->name('classroom.editarperfil');
+    Route::get('students/cursos', [usuariosController::class, 'coursesshow'])->name('students.cursos');
+    Route::post('students/cursos', [usuariosController::class, 'coursesshow'])->name('students.cursos');
 }); 
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('exams',examsController::class);

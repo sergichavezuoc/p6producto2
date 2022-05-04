@@ -60,6 +60,9 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('usuarios.edit',Auth::guard('students')->user()->id) }}">Perfil</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/students/cursos">Cursos</a>
+    </li>
     <li>
     <form method="get" action="{{ route('admin.logout') }}">
                         @csrf

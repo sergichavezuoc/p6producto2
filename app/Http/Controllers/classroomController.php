@@ -154,13 +154,13 @@ class classroomController extends Controller
     {
         $classrooms =classroom::get();
         $students =students::get();
-        return view('add_exam_classroom',compact('students','class','request'));
+        return view('add_exam_classroom',compact('students','classrooms','request'));
     }
     public function addWork(Request $request)
     {
         $classrooms =classroom::get();
         $students =students::get();
-        return view('add_work_classroom',compact('students','class','request'));
+        return view('add_work_classroom',compact('students','classrooms','request'));
     }
     public function update(Request $request, classroom $classroom)
     {
