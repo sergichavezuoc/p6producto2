@@ -12,6 +12,8 @@ use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\usuariosController;
 use App\Http\Controllers\worksController;
 use App\Http\Controllers\examsController;
+use App\Http\Controllers\incidencesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +44,9 @@ Route::group(['middleware' => ['auth:students']], function () {
     Route::get('students/perfil', [classroomController::class, 'editarPerfil'])->name('classroom.editarperfil');
     Route::get('students/cursos', [usuariosController::class, 'coursesshow'])->name('students.cursos');
     Route::post('students/cursos', [usuariosController::class, 'coursesshow'])->name('students.cursos');
+    Route::get('student/incidences', [incidencesController::class, 'incidenceStudent']);
+    Route::get('student/addIncidence', [incidencesController::class, 'addIncidence']);
+    Route::post('student/newIncidence', [incidencesController::class, 'newIncidence']);
 }); 
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('exams',examsController::class);
@@ -57,6 +62,9 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('classroom/storeWork', [classroomController::class, 'storeWork'])->name('classroom.storework');
     Route::resource('classroom',classroomController::class);
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('login');
+    Route::get('admin/incidences', [incidencesController::class, 'incidences']);
+    Route::get('admin/response/{id}', [incidencesController::class, 'response']);
+    Route::post('admin/addresponse', [incidencesController::class, 'addResponse']);
     
 
 });

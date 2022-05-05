@@ -45,6 +45,9 @@
       <a class="nav-link" href="{{ route('classroom.index') }}">Clases y horarios</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="/admin/incidences">Incidencias</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.logout') }}">Desconectar</a>
     </li>
     @else
@@ -62,6 +65,9 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/students/cursos">Cursos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/student/incidences">Incidencias</a>
     </li>
     <li>
     <form method="get" action="{{ route('admin.logout') }}">
