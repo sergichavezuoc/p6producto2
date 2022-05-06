@@ -8,6 +8,9 @@
                         <div class="alert alert-danger">{{ \Session::get('error') }}</div>
                     @endif
                     <div class="container">
+                    @if($incidencesCount)
+                    <div class="alert alert-warning">Tiene <a href="/admin/incidences">{{$incidencesCount}} incidencias</a> sin responder</diV>
+                    @endif
                         Esta es la pagina principal para gestionar nuestro centro académico
 </div>
                     <form method="get" action="{{ route('admin.logout') }}">

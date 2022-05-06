@@ -5,7 +5,7 @@
     <p>{{ $message }}</p>
 </div>
 @endif
-<table class="table table-hover table-dark">
+<table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">id incidencia</th>

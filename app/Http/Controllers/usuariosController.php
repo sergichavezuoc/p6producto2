@@ -11,6 +11,8 @@ use App\Models\incidences;
 use DB;
 class usuariosController extends Controller
 {
+    
+
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +28,10 @@ class usuariosController extends Controller
     public function dashboard()
     {
         //
-        $incidences = incidences::all()->where('id_student', Auth::guard('students')->user()->id)->whereNotNull('response')->whereNull('response_read_at');
-        $cursos = DB::select("SELECT courses.name AS curso from courses INNER JOIN enrollment ON enrollment.id_course=courses.id_course INNER JOIN students on students.id=enrollment.id_student WHERE students.id=".Auth::guard('students')->user()->id);
-        return view('dashboard',compact('incidences'));
+        $incidences = incidences::all()->where('id_student', Auth::guard('students')->user()->id)->whereNull('response_read_at')->where('response','!=','');
+       // $cursos = DB::select("SELECT courses.name AS curso from courses INNER JOIN enrollment ON enrollment.id_course=courses.id_course INNER JOIN students on students.id=enrollment.id_student WHERE students.id=".Auth::guard('students')->user()->id);
+        $incidencesCount = $incidences->count();
+        return view('dashboard',compact('incidencesCount'));
     }
     public function coursesshow(Request $request){
         if(isset($request['id_course'])){

@@ -9,10 +9,8 @@
 
 <h2>Configura tu perfil como lo desees. </h2>
     <br>
-    @if($incidences)
-    @foreach($incidences as $incidence)
-    {{$incidence->description}}
-    @endforeach
+    @if($incidencesCount)
+    <div class="alert alert-warning">Tiene <a href="/student/incidences">{{$incidencesCount}} respuestas</a> a incidencias sin leer</diV>
     @endif
     <div class="alert alert-info">Aquí podrás hacer modificación del nombre de usuario, correo electrónico y contraseña.</div>
     <div class="alert alert-info">En la opción calendario, puedes visualizar las siguientes clases</div>
