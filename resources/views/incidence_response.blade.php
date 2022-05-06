@@ -6,7 +6,7 @@
 </div>
 @endif
 <h1>Respuesta a la incidencia</h1>
-{{$id_incidence}}
+
 <form method="POST" action="/admin/addresponse/">
 @csrf
 <div class="form-group">

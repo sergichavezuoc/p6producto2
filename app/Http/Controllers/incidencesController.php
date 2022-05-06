@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\incidences;
 
 class incidencesController extends Controller
 {
@@ -18,7 +19,7 @@ class incidencesController extends Controller
     public function addResponse(Request $request){
        
         if(isset($request['response'])){ 
-            DB::select("UPDATE incidences SET response = '".$request["response"]."' WHERE id_incidence ='".$request["id_incidence"]."' ");
+            DB::select("UPDATE incidences SET response = '".$request["response"]."', incidence_read_at ='".date("Y-m-d H:i:s")."' WHERE id_incidence ='".$request["id_incidence"]."' ");
         }
         $incidences = DB::table('incidences')->get();
         return view('incidences_admin', compact('incidences'));
@@ -40,6 +41,17 @@ class incidencesController extends Controller
         }
         $incidences =DB::select("SELECT * FROM incidences WHERE id_student = '".Auth::guard('students')->user()->id."' ");
         return view('incidences_student', compact('incidences'));
+    }
+    public function readIncidence(Request $request){
+        $request->validate([
+            'id_incidence' => 'required',
+        ]);
+        
+        $incidence = incidences::where('id_incidence', $request['id_incidence'])->first();   
+        $incidence->update($request->all());
+
+        return redirect()->route('student.incidences')
+        ->with('success','Incidencia marcada como leida');
     }
 }
 /*

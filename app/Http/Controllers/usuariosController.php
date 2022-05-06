@@ -7,6 +7,7 @@ use App\Models\students;
 use App\Models\notifications;
 use App\Models\courses;
 use Illuminate\Support\Facades\Auth;
+use App\Models\incidences;
 use DB;
 class usuariosController extends Controller
 {
@@ -25,8 +26,9 @@ class usuariosController extends Controller
     public function dashboard()
     {
         //
+        $incidences = incidences::all()->where('id_student', Auth::guard('students')->user()->id)->whereNotNull('response')->whereNull('response_read_at');
         $cursos = DB::select("SELECT courses.name AS curso from courses INNER JOIN enrollment ON enrollment.id_course=courses.id_course INNER JOIN students on students.id=enrollment.id_student WHERE students.id=".Auth::guard('students')->user()->id);
-        return view('dashboard',compact('cursos'));
+        return view('dashboard',compact('incidences'));
     }
     public function coursesshow(Request $request){
         if(isset($request['id_course'])){
